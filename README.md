@@ -1,6 +1,6 @@
 # pash-js
 
-[![npm](https://img.shields.io/npm/v/pash-js)](https://www.npmjs.com/package/pash-js)
+[![npm](https://img.shields.io/npm/v/@akynzhe/pash-js)](https://www.npmjs.com/package/@akynzhe/pash-js)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 **TypeScript/React SDK для PASH** — Protocol for Agentic Semantic Hypermedia.
@@ -12,11 +12,11 @@ Supercharge your AI UI: вместо HTML-мусора от LLM — чистые
 ## Быстрый старт
 
 ```bash
-npm install pash-js
+npm install @akynzhe/pash-js
 ```
 
 ```tsx
-import { PashClient, coreRegistry, PashRenderer } from 'pash-js';
+import { PashClient, coreRegistry, PashRenderer } from '@akynzhe/pash-js';
 
 // 1. Создаём клиент с ядром из 24 компонентов (Tailwind-styled)
 const pash = new PashClient({ registry: coreRegistry });
@@ -41,7 +41,7 @@ function App() {
 ## Стриминг (компоненты появляются по мере генерации)
 
 ```tsx
-import { PashClient, coreRegistry, PashStream } from 'pash-js';
+import { PashClient, coreRegistry, PashStream } from '@akynzhe/pash-js';
 
 const pash = new PashClient({ registry: coreRegistry });
 
@@ -79,7 +79,7 @@ function ChatWindow() {
 
 ```tsx
 import OpenAI from 'openai';
-import { PashClient, coreRegistry, PashStream } from 'pash-js';
+import { PashClient, coreRegistry, PashStream } from '@akynzhe/pash-js';
 
 const openai = new OpenAI();
 const pash   = new PashClient({ registry: coreRegistry });
@@ -149,7 +149,7 @@ function ProductSearch({ query }: { query: string }) {
 ## Добавить свой компонент
 
 ```tsx
-import { PashClient, coreRegistry, type ComponentRegistry } from 'pash-js';
+import { PashClient, coreRegistry, type ComponentRegistry } from '@akynzhe/pash-js';
 import { createElement } from 'react';
 
 const myRegistry: ComponentRegistry = {
@@ -198,7 +198,7 @@ const pash = new PashClient({ registry: coreRegistry, locale: 'de-DE' });
 ## React Hooks
 
 ```tsx
-import { usePashStream, useDecodeStream, usePashClient } from 'pash-js';
+import { usePashStream, useDecodeStream, usePashClient } from '@akynzhe/pash-js';
 
 // Мемоизированный клиент
 const pash = usePashClient({ registry: coreRegistry });
