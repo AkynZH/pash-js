@@ -80,14 +80,26 @@ export class PashClient {
    * Автоматически синхронизирован — добавил компонент, промпт обновился.
    */
   getSystemPrompt(options?: GetSystemPromptOptions): string {
-    // Строим схемы из нашего реестра для pash-sdk prompt generator
-    const schemas: Record<number, any> = {};
-    for (const [id, def] of Object.entries(this._registry)) {
-      schemas[Number(id)] = def.schema;
+    // @pash/prompt — отдельный пакет, pash-sdk не знает про LLM
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    let promptPkg: any;
+    try {
+      promptPkg = require('@pash/prompt');
+    } catch {
+      throw new Error(
+        'pash-js: @pash/prompt is not installed.\n' +
+        'Run: npm install @pash/prompt\n\n' +
+        'pash-sdk is LLM-agnostic — prompt generation lives in @pash/prompt.'
+      );
     }
 
-    return sdk.generateSystemPrompt({
-      schemas,
+    const schemas: Record<number, any> = {};
+    for (const [id, def] of Object.entries(this._registry)) {
+      schemas[Number(id)] = (def as any).schema;
+    }
+
+    const engine = new promptPkg.PromptEngine({ schemas });
+    return engine.generate({
       lang: options?.lang ?? 'ru',
       mode: options?.mode ?? 'pash',
     });

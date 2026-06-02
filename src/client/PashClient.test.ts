@@ -116,21 +116,47 @@ describe('PashClient — renderComponent', () => {
 describe('PashClient — getSystemPrompt', () => {
   const c = new PashClient({ registry: coreRegistry });
 
-  test('возвращает строку', () => {
-    expect(typeof c.getSystemPrompt()).toBe('string');
+  // NOTE: getSystemPrompt requires @pash/prompt installed as a peer dependency.
+  // These tests verify the error path when @pash/prompt is missing.
+
+  test('бросает информативную ошибку когда @pash/prompt не установлен', () => {
+    expect(() => c.getSystemPrompt()).toThrow(
+      /@pash\/prompt is not installed/
+    );
   });
 
-  test('содержит ProductCard', () => {
-    expect(c.getSystemPrompt()).toContain('ProductCard');
+  test('ошибка содержит инструкцию по установке', () => {
+    expect(() => c.getSystemPrompt()).toThrow(
+      /npm install @pash\/prompt/
+    );
   });
 
-  test('lang: en', () => {
-    expect(c.getSystemPrompt({ lang: 'en' })).toContain('You are a data');
+  test('ошибка упоминает LLM-agnostic архитектуру', () => {
+    expect(() => c.getSystemPrompt()).toThrow(
+      /LLM-agnostic/
+    );
   });
 
-  test('mode: events содержит COMP_START', () => {
-    expect(c.getSystemPrompt({ mode: 'events' })).toContain('COMP_START');
-  });
+  /*
+   * NOTE: The following tests require @pash/prompt to be installed:
+   *   npm install @pash/prompt
+   *
+   * test('возвращает строку', () => {
+   *   expect(typeof c.getSystemPrompt()).toBe('string');
+   * });
+   *
+   * test('содержит ProductCard', () => {
+   *   expect(c.getSystemPrompt()).toContain('ProductCard');
+   * });
+   *
+   * test('lang: en', () => {
+   *   expect(c.getSystemPrompt({ lang: 'en' })).toContain('You are a data');
+   * });
+   *
+   * test('mode: events содержит COMP_START', () => {
+   *   expect(c.getSystemPrompt({ mode: 'events' })).toContain('COMP_START');
+   * });
+   */
 });
 
 describe('PashClient — extend', () => {

@@ -5,6 +5,16 @@
   "scripts": {
     "test": "jest --config jest.config.js --forceExit"
   },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0",
+    "@pash/prompt": "^1.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": { "optional": true },
+    "react-dom": { "optional": true },
+    "@pash/prompt": { "optional": false }
+  },
   "devDependencies": {
     "jest": "^29.0.0",
     "ts-jest": "^29.0.0",
