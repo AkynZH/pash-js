@@ -244,4 +244,4 @@ pash.getSystemPrompt({ lang: 'ru', mode: 'pash+id' });
 
 ## License
 
-MIT — Copyright (c) 2026 Sergei
+MIT © [Сергей Павленко](https://github.com/AkynZH)
